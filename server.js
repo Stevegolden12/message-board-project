@@ -14,6 +14,7 @@ var app = express();
 
 app.use(helmet.frameguard({ action: 'deny' }))
 app.use(helmet.dnsPrefetchControl())
+app.use(helmet.referrerPolicy())
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
