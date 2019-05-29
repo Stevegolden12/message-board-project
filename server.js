@@ -67,7 +67,7 @@ var messageThreadSchema = new Schema({
   }],
 });
 
-var messageBoard = mongoose.model('messageThread', schema);
+var messageBoard = mongoose.model('messageThread', messageThreadSchema);
 
 //Sample front-end
 app.route('/b/:board/')
