@@ -7,7 +7,9 @@ var cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const Schema = require('mongoose').Schema;
-const shortid = require('shortid')
+const shortid = require('shortid');
+var multer = require('multer');
+var upload = multer();
 
 require('dotenv').config();
 
@@ -41,6 +43,7 @@ var messageThreadSchema = new Schema({
     type: String,
     default: shortid.generate(),
   },
+  board: String,
   text: String,
   created_on: {
     type: Date,

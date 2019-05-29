@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\routes",
     "\\views"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\.env",
   "PreviewInSolutionExplorer": false
 }
