@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 var expect = require('chai').expect;
 var cors = require('cors');
 const helmet = require('helmet');
+const mongoose = require('mongoose');
+const Schema = require('mongoose').Schema;
+const shortid = require('shortid')
+
+require('dotenv').config();
 
 var apiRoutes = require('./routes/api.js');
 var fccTestingRoutes = require('./routes/fcctesting.js');
@@ -22,6 +27,47 @@ app.use(cors({ origin: '*' })); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+mongoose.connect(process.env.DB, { useNewUrlParser: true }, (err) => {
+  if (!err) {
+    console.log("Database connection successful")
+  } else {
+    console.log("Database is not connected: " + err)
+  }
+})
+
+var messageThreadSchema = new Schema({
+  _id: {
+    type: String,
+    default: shortid.generate(),
+  },
+  text: String,
+  created_on: {
+    type: Date,
+    default: new Date(),
+  },
+  bumped_on: {
+    type: Date,
+    default: new Date(),
+  },
+  reported: Boolean,
+  delete_password: String,
+  replies: [{
+    _id: {
+      type: String,
+      default: shortid.generate(),
+    },
+    text: String,
+    created_on: {
+      type: Date,
+      default: new Date(),      
+    },
+    delete_password: String,
+    reported: Boolean,
+  }],
+});
+
+var messageBoard = mongoose.model('messageThread', schema);
 
 //Sample front-end
 app.route('/b/:board/')

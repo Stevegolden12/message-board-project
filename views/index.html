@@ -20,7 +20,7 @@
     <ol>
       <li style="color: lightgray;">Only allow your site to be loading in an iFrame on your own pages.</li>
       <li style="color: lightgray;">Do not allow DNS prefetching.</li>
-      <li>Only allow your site to send the referrer for your own pages.</li>
+      <li style="color: lightgray;">Only allow your site to send the referrer for your own pages.</li>
       <li>
         I can <b>POST</b> a thread to a specific message board by passing form data <code>text</code> and <code>delete_password</code> to <i>/api/threads/{board}</i>.(Recomend res.redirect to board page /b/{board})
         Saved will be <code>_id</code>, <code>text</code>, <code>created_on</code>(date&amp;time), <code>bumped_on</code>(date&amp;time, starts same as created_on), <code>reported</code>(boolean), <code>delete_password</code>, &amp; <code>replies</code>(array).

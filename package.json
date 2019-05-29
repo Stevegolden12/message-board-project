@@ -10,15 +10,18 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "cors": "^2.8.5",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
-    "mongodb": "^3.2.6",
     "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
     "mocha": "^6.1.4",
-    "zombie": "^6.1.4",
-    "helmet": "^3.18.0"
+    "mongodb": "^3.2.6",
+    "mongoose": "^5.5.11",
+    "shortid": "^2.2.14",
+    "zombie": "^6.1.4"
   },
   "engines": {
     "node": "4.4.3"
