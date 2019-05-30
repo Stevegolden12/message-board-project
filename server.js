@@ -6,7 +6,7 @@ var expect = require('chai').expect;
 var cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-
+const pug = require('pug')
 
 var multer = require('multer');
 var upload = multer();
@@ -23,6 +23,8 @@ app.use(helmet.frameguard({ action: 'deny' }))
 app.use(helmet.dnsPrefetchControl())
 app.use(helmet.referrerPolicy())
 
+app.set("view engine", "pug");
+
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({ origin: '*' })); //For FCC testing purposes only
@@ -37,8 +39,6 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true }, (err) => {
     console.log("Database is not connected: " + err)
   }
 })
-
-
 
 //Sample front-end
 app.route('/b/:board/')

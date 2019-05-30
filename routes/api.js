@@ -8,10 +8,13 @@
 
 'use strict';
 
+const mongoose = require('mongoose');
 var expect = require('chai').expect;
 const Schema = require('mongoose').Schema;
 const shortid = require('shortid');
-const mongoose = require('mongoose');
+const fs = require('fs')
+
+const __dirnames = 'C:/Users/Steve/Documents/GitHub/message-board-project'
 
 var messageThreadSchema = new Schema({
   _id: {
@@ -57,11 +60,8 @@ module.exports = function (app) {
 
   app.route('/api/threads/:board')
     .post((req, res) => {
-      console.log("board: " + req.body.board)
-      console.log("text: " + req.body.text)
-      console.log("password: " + req.body.delete_password)
 
-      var thread = new messageBoard({        
+      var thread = new messageBoard({
         board: req.body.board,
         text: req.body.text,
         delete_password: req.body.delete_password
@@ -75,9 +75,9 @@ module.exports = function (app) {
         };
         // saved!
       });
-
-      res.send("POST board is working")
-    })
+      
+      res.render(__dirnames + '/views/board.pug');     
+   })
 
   app.route('/api/replies/:board');
 
