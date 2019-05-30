@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\routes",
     "\\views"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\views\\index.html",
   "PreviewInSolutionExplorer": false
 }

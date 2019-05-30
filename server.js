@@ -6,8 +6,10 @@ var expect = require('chai').expect;
 var cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const Schema = require('mongoose').Schema;
-const shortid = require('shortid')
+
+
+var multer = require('multer');
+var upload = multer();
 
 require('dotenv').config();
 
@@ -36,38 +38,7 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true }, (err) => {
   }
 })
 
-var messageThreadSchema = new Schema({
-  _id: {
-    type: String,
-    default: shortid.generate(),
-  },
-  text: String,
-  created_on: {
-    type: Date,
-    default: new Date(),
-  },
-  bumped_on: {
-    type: Date,
-    default: new Date(),
-  },
-  reported: Boolean,
-  delete_password: String,
-  replies: [{
-    _id: {
-      type: String,
-      default: shortid.generate(),
-    },
-    text: String,
-    created_on: {
-      type: Date,
-      default: new Date(),      
-    },
-    delete_password: String,
-    reported: Boolean,
-  }],
-});
 
-var messageBoard = mongoose.model('messageThread', messageThreadSchema);
 
 //Sample front-end
 app.route('/b/:board/')
