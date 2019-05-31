@@ -45,7 +45,7 @@
   <div id='testui' style='margin-left: 5%'>
     <h2 style="text-align: left">API Tests:</h2>
     <h4>New thread (POST /api/threads/:board)</h4>
-    <form action="/api/threads/test" method="post" id="newThread">
+    <form action="/api/threads/:board" method="post" id="newThread">
       <input type='text' placeholder='board' id='board1' name='board' required=''><br>
       <textarea type='text' placeholder='Thread text...' name='text' required=''></textarea><br>
       <input type='text' placeholder='password to delete' name='delete_password' required=''><br>
@@ -53,14 +53,14 @@
     </form>
     <hr>
     <h4>Report thread (PUT /api/threads/:board)</h4>
-    <form id="reportThread">
+    <form id="reportThread" method="post" action="/api/threads/:board?_method=PUT">
       <input type='text' placeholder='board' id='board2' name='board' required=''><br>
       <input type='text' placeholder='id to report' name='thread_id' required=''><br>
       <input type="submit" value="Submit">
     </form>
     <hr>
     <h4>Delete thread (DELETE /api/threads/:board)</h4>
-    <form id="deleteThread">
+    <form id="deleteThread" method="post" action="/api/threads/:board?_method=DELETE">
       <input type='text' placeholder='board' id='board3' name='board' required=''><br>
       <input type='text' placeholder='id to delete' name='thread_id' required=''><br>
       <input type='text' placeholder='password' name='delete_password' required=''><br>

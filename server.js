@@ -7,6 +7,7 @@ var cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const pug = require('pug')
+const methodOverride = require('method-override');
 
 var multer = require('multer');
 var upload = multer();
@@ -31,6 +32,16 @@ app.use(cors({ origin: '*' })); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
+
 
 mongoose.connect(process.env.DB, { useNewUrlParser: true }, (err) => {
   if (!err) {
