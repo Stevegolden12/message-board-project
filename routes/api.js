@@ -75,8 +75,8 @@ module.exports = function (app) {
         };
         // saved!
       });
-      
-      res.render(__dirnames + '/views/board.pug');     
+      //https://flaviocopes.com/pug/#interpolating-variables-in-pug
+      res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
    })
 
   app.route('/api/replies/:board');
