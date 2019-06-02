@@ -77,7 +77,16 @@ module.exports = function (app) {
       });
       //https://flaviocopes.com/pug/#interpolating-variables-in-pug
       res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
-   })
+    })
+
+    .put((req, res) => {
+      console.log("Checking PUT thread report functionality: " + req.body.board)
+
+      res.send('Thread has been reported')     
+    })
+
+
+    
 
   app.route('/api/replies/:board');
 
