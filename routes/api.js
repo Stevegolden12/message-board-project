@@ -79,15 +79,32 @@ module.exports = function (app) {
       res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
     })
 
-    .put((req, res) => {
-      console.log("Checking PUT thread report functionality: " + req.body.board)
-
-      res.send('Thread has been reported')     
-    })
 
 
     
 
-  app.route('/api/replies/:board');
+  app.route('/api/replies/:board')
+    .post((req, res) => { 
+ 
+      messageBoard.findOneAndUpdate(req.body.thread_id, {
+        $push: {
+          replies: {
+            text: req.body.text,
+            delete_password: req.body.delete_password
+          }
+        }
+      }, function (err, result) {
+
+        if (err) {
+          console.log(err)
+        } else {
+          res.send("comment is added")
+        }
+
+      })
+    })
+
+
+
 
 };
