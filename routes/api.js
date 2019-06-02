@@ -79,15 +79,29 @@ module.exports = function (app) {
       res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
     })
 
-    .put((req, res) => {
-      console.log("Checking PUT thread report functionality: " + req.body.board)
-
-      res.send('Thread has been reported')     
-    })
 
 
     
 
-  app.route('/api/replies/:board');
+  app.route('/api/replies/:board')
+    .post((req, res) => {
+      console.log("POST comment to thread: " + req.body.board)
+      console.log("board: " + req.body.board)
+      console.log("thread: " + req.body.thread_id)
+      console.log("text: " + req.body.text)
+      console.log("delete_password " + req.body.delete_password)
+
+      /*
+      var post = new messageBoard({
+        replies[text]: ,
+        replies[delete_password]: ,
+      })
+
+      //post.findByIdAndUpdate({
+       
+      //})
+      */
+      res.send("POST a comment")
+    })
 
 };
