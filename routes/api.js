@@ -84,24 +84,27 @@ module.exports = function (app) {
     
 
   app.route('/api/replies/:board')
-    .post((req, res) => {
-      console.log("POST comment to thread: " + req.body.board)
-      console.log("board: " + req.body.board)
-      console.log("thread: " + req.body.thread_id)
-      console.log("text: " + req.body.text)
-      console.log("delete_password " + req.body.delete_password)
+    .post((req, res) => { 
+ 
+      messageBoard.findOneAndUpdate(req.body.thread_id, {
+        $push: {
+          replies: {
+            text: req.body.text,
+            delete_password: req.body.delete_password
+          }
+        }
+      }, function (err, result) {
 
-      /*
-      var post = new messageBoard({
-        replies[text]: ,
-        replies[delete_password]: ,
+        if (err) {
+          console.log(err)
+        } else {
+          res.send("comment is added")
+        }
+
       })
-
-      //post.findByIdAndUpdate({
-       
-      //})
-      */
-      res.send("POST a comment")
     })
+
+
+
 
 };

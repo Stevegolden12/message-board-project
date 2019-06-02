@@ -43,7 +43,7 @@ app.use(methodOverride(function (req, res) {
 }))
 
 
-mongoose.connect(process.env.DB, { useNewUrlParser: true }, (err) => {
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useFindAndModify: false }, (err) => {
   if (!err) {
     console.log("Database connection successful")
   } else {
