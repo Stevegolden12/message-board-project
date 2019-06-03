@@ -117,15 +117,19 @@ module.exports = function (app) {
                 return i;
               }//end of if statement
             })//end of map 
-            const chkNum = JSON.stringify(index)
-            let knwNum = parseInt(chkNum.substring(chkNum.lastIndexOf(',') + 1, chkNum.length - 1));
-            console.log("index: " + knwNum)
-            console.log("result: " + result.replies[0].reported)
-
+            const lastNum = JSON.stringify(index).length - 1;
+          
+            const chkNum = JSON.stringify(index).substring(1, lastNum)
+            const arrLoc = parseInt(chkNum.split(',').filter((x,i,a) => {
+              return x !== 'null'
+            }))
+        
+           console.log("chkNum: " + chkNum)    
+           
 
             const fkIndex = 6
-            let chnQuery = "replies." + fkIndex + "._id"
-            let chnQuery1 = "replies." + fkIndex + ".reported"
+            let chnQuery = "replies." + arrLoc + "._id"
+            let chnQuery1 = "replies." + arrLoc + ".reported"
 
              var query = {
               '_id': req.body.thread_id,
