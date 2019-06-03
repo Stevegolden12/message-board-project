@@ -79,7 +79,7 @@
     </form>
     <hr>
     <h4>Report reply (PUT /api/replies/:board)</h4>
-    <form id="reportReply">
+    <form id="reportReply" method="post" action="/api/replies/:board?_method=PUT">
       <input type='text' placeholder='board' id='board5' name='board' required=''><br>
       <input type='text' placeholder='thread id' name='thread_id' required=''><br>
       <input type='text' placeholder='id to report' name='reply_id' required=''><br>
