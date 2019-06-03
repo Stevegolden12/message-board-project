@@ -79,6 +79,16 @@ module.exports = function (app) {
       //https://flaviocopes.com/pug/#interpolating-variables-in-pug
       res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
     })    
+    .put((req, res) => {
+      console.log("Check reported thread button")
+      messageBoard.findOneAndUpdate(req.body.thread_id, { reported: true }, (err, docs) => {
+        if (err) {
+          console.log(err)
+        } else {
+          res.send("Thread has been reported")
+        }
+      })
+    })
 
   app.route('/api/replies/:board')
     .post((req, res) => {
