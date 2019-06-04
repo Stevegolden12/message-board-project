@@ -14,7 +14,6 @@ const Schema = require('mongoose').Schema;
 const shortid = require('shortid');
 const fs = require('fs');
 
-
 const __dirnames = 'C:/Users/Steve/Documents/GitHub/message-board-project'
 
 var messageThreadSchema = new Schema({
@@ -80,7 +79,6 @@ module.exports = function (app) {
       res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
     })    
     .put((req, res) => {
-      console.log("Check reported thread button")
       messageBoard.findOneAndUpdate(req.body.thread_id, { reported: true }, (err, docs) => {
         if (err) {
           console.log(err)
@@ -89,6 +87,7 @@ module.exports = function (app) {
         }
       })
     })
+
 
   app.route('/api/replies/:board')
     .post((req, res) => {
@@ -121,7 +120,6 @@ module.exports = function (app) {
           if (err) {
             console.log(err)
           } else {
-            //console.log(result);
             let index = result.replies.map(function (x, i) {
               if (x._id === req.body.reply_id) {
                 return i;
@@ -136,8 +134,6 @@ module.exports = function (app) {
         
            console.log("chkNum: " + chkNum)    
            
-
-            const fkIndex = 6
             let chnQuery = "replies." + arrLoc + "._id"
             let chnQuery1 = "replies." + arrLoc + ".reported"
 
@@ -164,22 +160,66 @@ module.exports = function (app) {
                 console.log("DOCS: " + docs)
               }
               })
-         
-            /*
-            result.replies.findOneAndUpdate({
-             {
-               i: {
-                
-               }
-             },  
-              function (err, docs) {
-                console.log(docs)
-              }             
-       
-            })
-            */
           }//end of else   
         })//end of err, result funct   
-        })//end of put route  
+    })//end of put route  
+
+    .delete((req, res) => {
+      let threadLoc;
+
+      console.log();
+   
+      messageBoard.findOne({ _id: req.body.thread_id }, function(err, result){
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("RESULT: " + result)
+          let index = result.replies.map(function (x, i) {
+            if (x._id === req.body.reply_id) {
+              return i;
+            }//end of if statement
+          })//end of map 
+          const lastNum = JSON.stringify(index).length - 1;
+
+          const chkNum = JSON.stringify(index).substring(1, lastNum)
+          const arrLoc = parseInt(chkNum.split(',').filter((x, i, a) => {
+            return x !== 'null'
+          }))
+
+          console.log("arrLoc: " + arrLoc);
+
+          let chnQuery = "result.replies." + arrLoc + "._id"
+          let chnQuery1 = "results.replies." + arrLoc
+          let chnQuery2 = "replies." + arrLoc + ".delete_password"
+          let chnQuery3 = "replies." + arrLoc + "._id"
+          let chnQuery4 = "replies." + arrLoc
+
+          var query = {
+            '_id': req.body.thread_id,
+            [chnQuery]: req.body.reply_id,
+            [chnQuery2]: req.body.delete_password
+          }
+
+          var event = {
+            [chnQuery3]: req.body.reply_id
+          }       
+       
+          
+          messageBoard.findOneAndUpdate(query,
+            { $pull: { event } },
+            {new: true},
+            function (err, docs) {
+              if (err) {
+                console.log(err)
+              } else {
+                console.log('no error')
+                console.log("DOCS: " + docs)
+              }
+            })
+            
+
+        }
+      })
+    })
 
 };
