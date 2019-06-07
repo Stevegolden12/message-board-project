@@ -88,6 +88,30 @@ module.exports = function (app) {
       })
     })
 
+    .delete((req, res) => {
+      console.log("Delete Thread linked")
+  
+      messageBoard.findOne({ _id: req.body.thread_id },
+        function (err, result) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("Result: " + result.delete_password)
+          if (result.delete_password === req.body.delete_password) {  
+            messageBoard.findOneAndDelete({ _id: req.body.thread_id }, function (err, docs) {
+              if (err) {
+                console.log(err)
+              } else {
+                res.send("Thread is deleted")
+              }
+            })
+          } else {
+            res.send("Password is incorrect")
+          }
+        }//end of else statement
+      })//end of findOne
+    })
+
 
   app.route('/api/replies/:board')
     .post((req, res) => {
@@ -161,7 +185,7 @@ module.exports = function (app) {
                 }
               })
           }//end of else   
-        })//end of err, result funct   
+        })//end of err, result function   
     })//end of put route  
 
     .delete((req, res) => {
