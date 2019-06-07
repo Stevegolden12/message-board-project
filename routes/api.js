@@ -59,6 +59,17 @@ var messageBoard = mongoose.model('messagethread', messageThreadSchema);
 module.exports = function (app) {
 
   app.route('/api/threads/:board')
+    .get((req, res) => {
+      res.send(req.params.board)
+      messageBoard.find({ board: req.params.board }, '_id created_on bumped_on board text', { limit: 10 }, function (err, docs) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(docs)
+        }
+      })
+    })
+
     .post((req, res) => {
 
       var thread = new messageBoard({
@@ -78,6 +89,8 @@ module.exports = function (app) {
       //https://flaviocopes.com/pug/#interpolating-variables-in-pug
       res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
     })    
+
+
     .put((req, res) => {
       messageBoard.findOneAndUpdate(req.body.thread_id, { reported: true }, (err, docs) => {
         if (err) {
