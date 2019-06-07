@@ -127,8 +127,8 @@ module.exports = function (app) {
 
         if (err) {
           console.log(err)
-        } else {
-          res.send("comment is added")
+        } else {      
+          res.render(__dirnames + '/views/board.pug', { title: 'TestingFORTOOLONG' });    
         }
 
       })
