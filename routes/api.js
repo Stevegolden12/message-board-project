@@ -46,6 +46,10 @@ var messageThreadSchema = new Schema({
       type: Date,
       default: new Date(),
     },
+    bumped_on: {
+      type: Date,
+      default: new Date(),
+    },
     delete_password: String,
     reported: {
       type: Boolean,
@@ -177,7 +181,7 @@ module.exports = function (app) {
   app.route('/api/replies/:board')
     .post((req, res) => {
 
-      messageBoard.findOneAndUpdate(req.body.thread_id, {
+      messageBoard.findOneAndUpdate({_id: req.body.thread_id }, {
         $push: {
           replies: {
             text: req.body.text,
