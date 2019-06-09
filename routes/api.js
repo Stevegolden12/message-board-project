@@ -60,13 +60,61 @@ module.exports = function (app) {
 
   app.route('/api/threads/:board')
     .get((req, res) => {
-      res.send(req.params.board)
-      messageBoard.find({ board: req.params.board }, '_id created_on bumped_on board text', { limit: 10 }, function (err, docs) {
+      //res.send(req.params.board)
+      /*
+       * Need to sort by bumped on category
+       * and get 3 most recent replies
+      */
+      messageBoard.find({ board: req.params.board }, '_id created_on bumped_on board text', { limit: 10 }, function (err, thread) {
         if (err) {
           console.log(err)
         } else {
-          console.log(docs)
-        }
+         
+          messageBoard.find({ board: req.params.board }, 'replies._id replies.text replies.created_on replies.bumped_on ', { limit: 10 }, function (err, reply) {
+             
+            if (err) {
+              console.log(err)
+            } else {
+          
+             // console.log("Replies: " + reply)
+              let replyArr = []    
+              
+              reply.map((x, i) => {                
+                if (x.replies.length !== 0) {                  
+                  x.replies.map((comment, i) => {
+                    
+                    if (replyArr.length < 3) {
+                     
+                      replyArr.push(comment)
+                      //console.log("replyArr: " + replyArr)
+                    } else {                      
+                      for (let index = 0; index < 3; index++) {                                        
+                          if (comment.created_on.getTime() > replyArr[index].created_on.getTime()) {
+                            replyArr[index] = comment;
+                            break;
+                          }                  
+                        }//end of for loop                      
+                                   
+                  }//endof length <= 3         
+            
+                
+                })//end of thread map                 
+                
+                }
+                 
+              })
+              console.log("thread: " + thread)
+              console.log("replyArr: " + replyArr)
+              let allArr = thread.concat(replyArr)
+              console.log("allArr: " + allArr)
+            
+             res.json(allArr)
+         
+            }// end of replies error
+           
+
+          })      
+        }//end of find error if
       })
     })
 
