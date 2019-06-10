@@ -107,7 +107,6 @@ module.exports = function (app) {
               })       
               console.log("replyArr: " + replyArr)
               let allArr = thread.concat(replyArr)
-
             
              res.json(allArr)
          
@@ -119,9 +118,7 @@ module.exports = function (app) {
       })
     })
 
-    .post((req, res) => {
-
- 
+    .post((req, res) => { 
  
       var thread = new messageBoard({
           _id: shortid.generate(),
@@ -180,6 +177,16 @@ module.exports = function (app) {
 
 
   app.route('/api/replies/:board')
+    .get((req, res) => {
+
+      messageBoard.findOne({ _id: req.query.thread_id }, '_id created_on bumped_on board text replies',
+        function (err, thread) {
+          res.json(thread)
+        })
+
+
+    })
+
     .post((req, res) => {
 
       messageBoard.findOneAndUpdate({_id: req.body.thread_id }, {
