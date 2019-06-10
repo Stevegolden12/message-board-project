@@ -93,7 +93,7 @@ module.exports = function (app) {
                       //console.log("replyArr: " + replyArr)
                     } else {                      
                       for (let index = 0; index < 3; index++) {                                        
-                          if (comment.created_on.getTime() > replyArr[index].created_on.getTime()) {
+                          if (comment.bumped_on.getTime() > replyArr[index].bumped_on.getTime()) {
                             replyArr[index] = comment;
                             break;
                           }                  
@@ -102,15 +102,12 @@ module.exports = function (app) {
                   }//endof length <= 3         
             
                 
-                })//end of thread map                 
-                
-                }
-                 
-              })
-              console.log("thread: " + thread)
+                })//end of thread map  
+               }                 
+              })       
               console.log("replyArr: " + replyArr)
               let allArr = thread.concat(replyArr)
-              console.log("allArr: " + allArr)
+
             
              res.json(allArr)
          
