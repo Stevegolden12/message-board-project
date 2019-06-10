@@ -121,22 +121,26 @@ module.exports = function (app) {
 
     .post((req, res) => {
 
+ 
+ 
       var thread = new messageBoard({
-        board: req.body.board,
-        text: req.body.text,
-        delete_password: req.body.delete_password
-      });
+          _id: shortid.generate(),
+          board: req.body.board,
+          text: req.body.text,
+          delete_password: req.body.delete_password
+        });
 
-      thread.save(function (err) {
-        if (err) {
-          return err
-        } else {
-          console.log("save worked")
-        };
-        // saved!
-      });
-      //https://flaviocopes.com/pug/#interpolating-variables-in-pug
-      res.render(__dirnames + '/views/board.pug', {title: 'TestingFORTOOLONG'});     
+        thread.save(function (err) {
+          if (err) {
+            return err
+          } else {
+            console.log("save worked")
+          };
+          // saved!
+        });         
+        res.render(__dirnames + '/views/board.pug', { title: 'TestingFORTOOLONG' })
+   
+        
     })    
 
 
@@ -181,6 +185,7 @@ module.exports = function (app) {
       messageBoard.findOneAndUpdate({_id: req.body.thread_id }, {
         $push: {
           replies: {
+            _id: shortid.generate(),
             text: req.body.text,
             delete_password: req.body.delete_password
           }
