@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\routes",
+    "\\tests",
     "\\views"
   ],
-  "SelectedNode": "\\routes\\api.js",
+  "SelectedNode": "\\.env",
   "PreviewInSolutionExplorer": false
 }
