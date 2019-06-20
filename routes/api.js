@@ -89,8 +89,7 @@ module.exports = function (app) {
                     
                     if (replyArr.length < 3) {
                      
-                      replyArr.push(comment)
-                      //console.log("replyArr: " + replyArr)
+                      replyArr.push(comment)          
                     } else {                      
                       for (let index = 0; index < 3; index++) {                                        
                           if (comment.bumped_on.getTime() > replyArr[index].bumped_on.getTime()) {
@@ -104,8 +103,8 @@ module.exports = function (app) {
                 
                 })//end of thread map  
                }                 
-              })       
-              console.log("replyArr: " + replyArr)
+              })     
+
               let allArr = thread.concat(replyArr)
             
              res.json(allArr)
@@ -152,14 +151,12 @@ module.exports = function (app) {
     })
 
     .delete((req, res) => {
-      console.log("Delete Thread linked")
   
       messageBoard.findOne({ _id: req.body.thread_id },
         function (err, result) {
         if (err) {
           console.log(err)
-        } else {
-          console.log("Result: " + result.delete_password)
+        } else {   
           if (result.delete_password === req.body.delete_password) {  
             messageBoard.findOneAndDelete({ _id: req.body.thread_id }, function (err, docs) {
               if (err) {
@@ -209,9 +206,6 @@ module.exports = function (app) {
     })
 
     .put((req, res) => {
-      console.log("thread id: " + req.body.thread_id)
-      console.log("reply id: " + req.body.reply_id)
-
 
       messageBoard.findOne({ _id: req.body.thread_id },
         function (err, result) {
@@ -230,8 +224,6 @@ module.exports = function (app) {
               return x !== 'null'
             }))
 
-            console.log("chkNum: " + chkNum)
-
             let chnQuery = "replies." + arrLoc + "._id"
             let chnQuery1 = "replies." + arrLoc + ".reported"
 
@@ -244,10 +236,6 @@ module.exports = function (app) {
               [chnQuery1]: true
             }
 
-            console.log(query);
-            console.log(event)
-
-
             messageBoard.findOneAndUpdate(query,
               event,
               { new: true }, function (err, docs) {
@@ -255,7 +243,7 @@ module.exports = function (app) {
                   console.log(err)
                 } else {
                   console.log('no error')
-                  console.log("DOCS: " + docs)
+                  res.send("Reply has been reported")
                 }
               })
           }//end of else   
@@ -269,7 +257,7 @@ module.exports = function (app) {
         if (err) {
           console.log(err)
         } else {
-          //console.log("RESULT: " + result)
+ 
           let index = result.replies.map(function (x, i) {
             if (x._id === req.body.reply_id) {
               return i;
@@ -285,7 +273,7 @@ module.exports = function (app) {
           const rmvArr = result.replies[arrLoc]  
 
           if (result.replies[arrLoc].delete_password == req.body.delete_password) {
-            console.log(rmvArr)
+
             rmvArr.remove();
             result.save();   
             res.send("Comment deleted")
