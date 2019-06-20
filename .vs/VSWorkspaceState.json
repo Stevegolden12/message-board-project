@@ -1,10 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
     "\\routes",
     "\\tests",
     "\\views"
   ],
-  "SelectedNode": "\\.env",
+  "SelectedNode": "\\views\\board.pug",
   "PreviewInSolutionExplorer": false
 }
