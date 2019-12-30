@@ -6,6 +6,6 @@
     "\\tests",
     "\\views"
   ],
-  "SelectedNode": "\\views\\board.pug",
+  "SelectedNode": "\\routes\\api.js",
   "PreviewInSolutionExplorer": false
 }

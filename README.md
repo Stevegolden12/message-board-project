@@ -1,8 +1,19 @@
+# Message Board Project
 
-Project Anon Message Board
+Message board project using Express, MongoDB, and Mongoose with HTML, CSS, and JavaScript.  Part of freeCodeCamp Information Security and Quality Assurance certificate projects.
 
-1) SET NODE_ENV to `test` without quotes when ready to write tests and DB to your databases connection string (in .env)
-2) Recomended to create controllers/handlers and handle routing in routes/api.js
-3) You will add any security features to `server.js`
-4) You will create all of the functional/unit tests in `tests/2_functional-tests.js` and `tests/1_unit-tests.js` but only functional will be tested
+## Installation
+
+Download files [here](https://github.com/Stevegolden12/message-board-project)
+
+In the root directory type: 'npm start'
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+## Acknowledgement
+
+Thank you to freeCodeCamp for helping me learn Express, MongoDB, and Mongoose.
 
